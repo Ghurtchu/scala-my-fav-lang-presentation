@@ -1,10 +1,12 @@
 package part2_functions.control_flows
 
+import java.util.concurrent.Callable
 import scala.annotation.tailrec
 
 object WhileLoopImpl:
 
   @main def run =
+    
     var num = 0
 
     runWhile(num < 10) {
@@ -13,13 +15,12 @@ object WhileLoopImpl:
     }
 
     def program: Unit = {
-      println("Running program...")
+      println("Running body...")
       "...".showN(3)
       println(scala.util.Random.nextInt(10))
       "...".showN(3)
-      println("Finished")
+      println("Finished calculating")
     }
-
 
   // both are by name parameters, which are unevaluated at call site
   // they are evaluated when they're first used inside the method block
@@ -31,7 +32,7 @@ object WhileLoopImpl:
       runWhile(predicate)(program)
 
   extension (str: String)
-    def showN(n: Int): Unit = (0 to n).foreach(_ => {
+    def showN(n: Int): Unit = (0 to n).foreach { _ => 
       Thread sleep 125
       println(str)
-    })
+    }

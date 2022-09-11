@@ -7,22 +7,24 @@ package part2_functions.lifting
 
 object Lifting {
 
-  def main(args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit =
 
-    try {
-      parseInt("Not a number!")
-    } catch {
-      case e: Exception => println("I just saved the main thread")
-    }
+    try parseInt("Not a number!")
+    catch case _: Exception => println("I just saved the main thread from exploding :D")
 
-    (1 to 10)
+    val vector = (1 to 10).toVector concat Vector("not a number :P", "not a number! :)", "not a number!")
+    println(vector)
+
+    val parsed: Seq[Int] = vector
       .map(_.toString)
-      .foreach(n => println(safeParseInt(n)))
+      .flatMap(safeParseInt)
 
-  }
+    parsed.foreach(println)
+  
 
   def parseInt(number: String): Int = Integer parseInt number // unsafe
-
+  
+  // lift the heavy weights of preserving your programs from runtime exceptions :) 
   def safeParseInt(number: String): Option[Int] = if number.forall(_.isDigit) then Some(Integer.parseInt(number)) else None
 
 

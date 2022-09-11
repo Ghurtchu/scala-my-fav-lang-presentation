@@ -7,15 +7,14 @@ object TryImpl {
 
   // laziness (by-name params), generics, pattern matching, sum types
   
-  def main(args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit = 
 
     println("-" * 50)
 
     println("-" * 50)
 
-  }
 
-  enum Attempt[+A] {
+  enum Attempt[+A]:
 
     self =>
 
@@ -32,11 +31,8 @@ object TryImpl {
 
     def filter(f: A => Boolean): Attempt[A] = ???
 
-  }
-
   // companion objects store "static"-like methods along with constructors & shared data
-  object Attempt {
+  object Attempt:
     def apply[A](a: => A): Attempt[A] = ???
-  }
-
+  
 }

@@ -12,26 +12,27 @@ object SumTypes {
     case Phone(number: Long)
     case Address(city: String, streetName: String)
   
-  def sendInvitation(contact: Contact): Unit = contact match
-    case e @ Email(value)              => ???
-    case p @ Phone(number)             => ???
-    case a @ Address(city, streetName) => ???
+  def sendInvitation(contact: Contact): Unit =
+    InvitationService.fromContact(contact)
+      .sendInvitation(???, ???, ???)
 
-  // sum type as a service
-  sealed trait InvitationService[A <: Contact]:
-    def sendInvitation(to: A, from: A, message: String): Unit
-  
+  // generalized sum type as a service
+  sealed trait InvitationService[+A]:
+    def sendInvitation[B >: A](to: B, from: B, message: String): Unit
 
-  final case class EmailService() extends InvitationService[Email]:
-    override def sendInvitation(to: Email, from: Email, message: String): Unit = ???
-  
+  object InvitationService:
+    def fromContact(contact: Contact): InvitationService[Contact] = contact match
+      case Contact.Email(value)              => EmailService()
+      case Contact.Phone(number)             => PhoneService()
+      case Contact.Address(city, streetName) => AddressService()
 
+  final case class EmailService() extends InvitationService[Contact.Email]:
+    override def sendInvitation[B >: Contact.Email](to: B, from: B, message: String): Unit = println(s"Sending invitation via email to $to")
+    
   final case class PhoneService() extends InvitationService[Phone]:
-    override def sendInvitation(to: Phone, from: Phone, message: String): Unit = ???
-  
-
+    override def sendInvitation[B >: Contact.Phone](to: B, from: B, message: String): Unit = println(s"Sending invitation via phone service to $to")
+    
   final case class AddressService() extends InvitationService[Address]:
-    override def sendInvitation(to: Address, from: Address, message: String): Unit = ???
-  
+    override def sendInvitation[B >: Contact.Address](to: B, from: B, message: String): Unit = println(s"Sending invitation via mailman to $to")
 
 }
