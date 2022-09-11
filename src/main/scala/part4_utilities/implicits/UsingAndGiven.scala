@@ -22,5 +22,6 @@ object UsingAndGiven {
 }
 
 object ConnectionProvider {
+  // create connection once and provide for Dao instances
   given connection: Connection = new Connection{}
 }
