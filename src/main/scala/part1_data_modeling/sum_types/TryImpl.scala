@@ -13,11 +13,14 @@ object TryImpl {
 
     println("-" * 50)
 
-
+  
+  // +A means "Covariant"
+  // if A <: B then Attempt[A] <: Attempt[B]
   enum Attempt[+A]:
+    
+    import Attempt.*
 
-    self =>
-
+    // Either of these two cases
     case Success(value: A)
     case Failure(t: Throwable)
 

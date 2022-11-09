@@ -3,36 +3,37 @@ package part1_data_modeling.sum_types
 import part1_data_modeling.sum_types.SumTypes.Contact._
 
 object SumTypes {
-
-  import scala.util.Try
   
   // sum type - finite amount of representations of a general interface
+  // Scala 3 way of modeling Sum Types
   enum Contact:
     case Email(value: String)
     case Phone(number: Long)
     case Address(city: String, streetName: String)
-  
-  def sendInvitation(contact: Contact): Unit =
-    InvitationService.fromContact(contact)
-      .sendInvitation(???, ???, ???)
-
-  // generalized sum type as a service
-  sealed trait InvitationService[+A]:
-    def sendInvitation[B >: A](to: B, from: B, message: String): Unit
-
-  object InvitationService:
-    def fromContact(contact: Contact): InvitationService[Contact] = contact match
-      case Contact.Email(value)              => EmailService()
-      case Contact.Phone(number)             => PhoneService()
-      case Contact.Address(city, streetName) => AddressService()
-
-  final case class EmailService() extends InvitationService[Contact.Email]:
-    override def sendInvitation[B >: Contact.Email](to: B, from: B, message: String): Unit = println(s"Sending invitation via email to $to")
+    case LinkedinProfile(link: String)
     
-  final case class PhoneService() extends InvitationService[Phone]:
-    override def sendInvitation[B >: Contact.Phone](to: B, from: B, message: String): Unit = println(s"Sending invitation via phone service to $to")
+  // In Scala 2 we would have used sealed traits and put the cases in the companion object of Contact
+  object scala2 {
     
-  final case class AddressService() extends InvitationService[Address]:
-    override def sendInvitation[B >: Contact.Address](to: B, from: B, message: String): Unit = println(s"Sending invitation via mailman to $to")
+    sealed trait Contact
+    
+    object Contact {
+      final case class Email(value: String)                      extends Contact
+      final case class Phone(number: Long)                       extends Contact
+      final case class Address(city: String, streetName: String) extends Contact
+      final case class LinkedinProfile(link: String)             extends Contact
+    }
+    
+  }
+
+  def main(args: Array[String]): Unit = {
+
+    import Contact._
+
+    val email: Contact = Email("johndoe@gmail.com")
+    val phone: Contact = Phone(555205407)
+    val address: Contact = Address("Tbilisi", "Vazha-Pshavela Street")
+    val linkedinProfile: Contact = LinkedinProfile("https://www.linkedin.com/in/ghurtchu/")
+  }
 
 }

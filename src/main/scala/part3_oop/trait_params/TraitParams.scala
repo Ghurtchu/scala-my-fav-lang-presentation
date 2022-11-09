@@ -38,7 +38,6 @@ object TraitParams {
 
     println(query)
 
-
   }
 
 }

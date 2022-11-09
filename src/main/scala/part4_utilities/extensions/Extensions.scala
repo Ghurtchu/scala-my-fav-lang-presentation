@@ -1,5 +1,7 @@
 package part4_utilities.extensions
 
+import scala.collection.concurrent.TrieMap
+
 object Extensions {
 
   case class Machine(speed: Int)
@@ -25,6 +27,7 @@ object Extensions {
       // some implementation details
     }
   }
+  TrieMap()
 
   extension(thirdPartyService: ThirdPartyService)
     def newMethod: Unit = println("calling from extension")

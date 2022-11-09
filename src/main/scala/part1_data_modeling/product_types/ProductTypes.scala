@@ -29,7 +29,7 @@ object ProductTypes {
   final case class Graphics(points: List[Point])          extends Expr
   final case class Program(program: String)               extends Expr
 
-  def display(expression: Expression): Unit = expression.expr match
+  def display(expression: Expression): Unit = expression. expr match
     case Graphics(points)         => points.foreach(p => println(s"(x=${p._1}, y=${p._2})"))
     case Program(program)         => println("Bytes in size: " + program.getBytes.sum)
     case MathEquations(equations) => equations.foreach(println)

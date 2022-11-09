@@ -1,6 +1,6 @@
 package part2_functions.patterns
 
-import javax.management.monitor.StringMonitor
+import MonoidInstances.*
 
 // A good example of what object-functional design means
 
@@ -12,15 +12,19 @@ trait SemiGroup[A]:
 trait Monoid[A] extends SemiGroup[A]:
   def zero: A
 
-// sensible default int impl
-final class IntegerMonoid extends Monoid[Int]:
-  override def zero: Int = ???
-  override def combine(x: Int, y: Int): Int = ???
+object MonoidInstances {
+  // sensible default int impl
+  final class IntegerMonoid extends Monoid[Int] :
+    override def zero: Int = ???
 
-// sensible default string impl
-final class StringMonoid extends Monoid[String]:
-  override def zero: String = ???
-  override def combine(x: String, y: String): String = ???
+    override def combine(x: Int, y: Int): Int = ???
+
+  // sensible default string impl
+  final class StringMonoid extends Monoid[String] :
+    override def zero: String = ???
+
+    override def combine(x: String, y: String): String = ???
+}
 
 // for any given instance of type A we're creating two methods, zero and combine
 extension[A](a: A)
