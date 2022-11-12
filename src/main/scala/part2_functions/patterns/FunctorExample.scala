@@ -4,6 +4,7 @@ import part2_functions.patterns.FunctorExample.Tree._
 object FunctorExample {
 
   // higher-kinded type, abstracts over container with capability of 'map'
+  // List, Option, Try, Future, Either ...
   trait Functor[F[_]] {
     def map[A, B](fa: F[A])(f: A => B): F[B]
   }
@@ -22,7 +23,17 @@ object FunctorExample {
   map[Option, Int, Int](Option(5), _ + 1) // Option(6)
   map[List, String, String](List("a", "b", "c"), _.toUpperCase) // List("A", "B", "C")
 
+  case class User(name: String)
+
+  map[Option, User, String](Some(User("John")), _.name) // Some("John")
+
   def main(args: Array[String]): Unit = {
+
+    implicit val treeFunctor: Functor[Tree] = new Functor[Tree] {
+      override def map[A, B](fa: Tree[A])(f: A => B): Tree[B] = fa.map(f)
+    }
+
+    println(map[Tree, Int, Int](Tree.node(Tree.leaf(2), Tree.leaf(3), 4), _ * 10))
 
   }
 

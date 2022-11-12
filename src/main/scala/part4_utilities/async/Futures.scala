@@ -1,4 +1,4 @@
-package part4_utilities.implicits
+package part4_utilities.async
 
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
@@ -15,10 +15,10 @@ object Futures {
       println(Thread.currentThread().getName)
       println("Hello from Future!")
     }
-
+    
     future.onComplete {
-      case Failure(exception) => println("Ugh..")
-      case Success(value) => println("Bye from Present!")
+      case Failure(exception) => println(s"Ugh.. failed due to $exception")
+      case Success(_)         => println("Bye from Present!")
     }
 
     Thread sleep 1000

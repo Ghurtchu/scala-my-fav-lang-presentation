@@ -2,6 +2,7 @@ package part3_oop.mixin_composition
 
 import scala.collection.mutable.ArrayBuffer
 
+// pimp my library
 object StackableModifications {
 
   abstract class IntQueue {
@@ -50,19 +51,19 @@ object StackableModifications {
     doublingQueue.put(10)
     assert(doublingQueue.get == 20)
 
+    // increment and then double
     val incrementingDoublingQueue = IncrementingDoublingQueue()
-    incrementingDoublingQueue.put(1) // 3
+    incrementingDoublingQueue.put(1) // (+1) * 2
     assert(incrementingDoublingQueue.get == 4)
-    incrementingDoublingQueue.put(10) // 21
+    incrementingDoublingQueue.put(10) // (+1) * 2
     assert(incrementingDoublingQueue.get == 22)
 
+    // make positive, then increment, then double
     val thirdQueue = PositiveIncrementingDoublingQueue()
     thirdQueue.put(-10) // Positive -> 10, Incrementing -> 11, Doubling -> 22
     assert(thirdQueue.get == 22)
 
     println("end")
   }
-
-  // much more than this...
 
 }

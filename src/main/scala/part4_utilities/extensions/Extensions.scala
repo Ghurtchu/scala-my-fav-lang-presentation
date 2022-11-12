@@ -4,8 +4,6 @@ import scala.collection.concurrent.TrieMap
 
 object Extensions {
 
-  case class Machine(speed: Int)
-
   def main(args: Array[String]): Unit = {
 
     "all work and no play makes Jack a dull boy"
@@ -25,9 +23,9 @@ object Extensions {
   final class ThirdPartyService extends ThirdPartyInterface {
     override def call: Unit = {
       // some implementation details
+      println("Hello")
     }
   }
-  TrieMap()
 
   extension(thirdPartyService: ThirdPartyService)
     def newMethod: Unit = println("calling from extension")

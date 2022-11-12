@@ -30,10 +30,25 @@ object SumTypes {
 
     import Contact._
 
-    val email: Contact = Email("johndoe@gmail.com")
-    val phone: Contact = Phone(555205407)
+    // vals are immutable values (constants in other languages, or final variables in Java)
+    val email = Email("johndoe@gmail.com")
+    val phone = Phone(555205407)
     val address: Contact = Address("Tbilisi", "Vazha-Pshavela Street")
     val linkedinProfile: Contact = LinkedinProfile("https://www.linkedin.com/in/ghurtchu/")
+
+    // mutable variables
+    var bool: Boolean = false
+    bool = true
+
   }
+
+  val unit: Unit = ()
+  
+  // pattern matching
+  def process: Contact => Unit = contact => contact match
+    case Contact.Email(value) => ???
+    case Contact.Phone(number) => ???
+    case Contact.Address(city, streetName) => ???
+    case Contact.LinkedinProfile(link) => ???
 
 }

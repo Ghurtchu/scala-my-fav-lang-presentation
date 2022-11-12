@@ -20,7 +20,6 @@ object Lifting {
       .flatMap(safeParseInt)
 
     parsed.foreach(println)
-  
 
   def parseInt(number: String): Int = Integer parseInt number // unsafe
   

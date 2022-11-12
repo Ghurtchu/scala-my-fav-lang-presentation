@@ -1,4 +1,4 @@
-package part4_utilities.implicits
+package part4_utilities.async
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -30,7 +30,7 @@ object ComposableFutures {
         Thread sleep 250
       }
 
-      println("Email has been sent successfully")
+      println(s"Email: $email has been sent successfully")
       Future(EmailResponse("Success"))
     }
 

@@ -29,6 +29,6 @@ object SmartConstructors {
     private def isValid(email: String): Boolean = email.contains("@") // simple solution for the sake of example
   }
 
-  def sendMessage(message: String, phoneNumber: Email): Unit = ???
+  def sendMessage(message: String, email: Email): Unit = ???
 
 }

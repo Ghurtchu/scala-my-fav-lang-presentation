@@ -9,7 +9,7 @@ package object extensions {
   extension(str: String)
 
     def capitalizeFirst: String = {
-      val splitted = str split " "
+      val splitted: Array[String] = str split " "
       splitted(0).toUpperCase.concat(splitted.drop(1).mkString(" ", " ", ""))
     }
 

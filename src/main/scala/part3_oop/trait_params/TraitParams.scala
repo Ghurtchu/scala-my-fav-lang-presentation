@@ -33,8 +33,8 @@ object TraitParams {
 
   def main(args: Array[Query]): Unit = {
 
-    val query = new SearchQueryBuilder(List("person.name == 'Peter'", "person.name == 'Parker'")) {}
-      .buildQuery(SearchCriteria.Exact, Operator.And)
+    val query = new SearchQueryBuilder(List("person.name == 'Peter'", "person.name == 'John'")) {}
+      .buildQuery(SearchCriteria.Exact, Operator.Or)
 
     println(query)
 

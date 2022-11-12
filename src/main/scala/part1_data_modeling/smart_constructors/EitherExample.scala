@@ -18,7 +18,7 @@ object EitherExample {
       println("GET /user/{id}")
       while true do 
         print("id: ")
-        val id = Try(scala.io.StdIn.readLine().toInt)
+        val id: Try[Int] = Try(scala.io.StdIn.readLine().toInt)
         println {
           id.fold(
             _ => HttpResponse("Invalid id format", StatusCode.BadRequest),
