@@ -34,34 +34,36 @@ object TryImpl {
 
       // +A means "Covariant"
       // if A <: B then Attempt[A] <: Attempt[B]
-    enum Attempt[+A]:
+    enum Attempt[+A] {
 
-      import Attempt.*
+        import Attempt.*
 
-      // Either of these two cases
-      case Success(value: A)
-      case Failure(t: Throwable)
+        // Either of these two cases
+        case Success(value: A)
+        case Failure(t: Throwable)
 
-      def get: A = this match
-        case Success(v) => v
-        case Failure(t) => throw new UnsupportedOperationException("???")
+        def get: A = this match
+          case Success(v) => v
+          case Failure(t) => throw new UnsupportedOperationException("???")
 
-      def map[B](f: A => B): Attempt[B] = this match
-        case Success(v) => Success(f(v))
-        case Failure(t) => Failure(t)
+        def map[B](f: A => B): Attempt[B] = this match
+          case Success(v) => Success(f(v))
+          case Failure(t) => Failure(t)
 
-      def flatMap[B](f: A => Attempt[B]): Attempt[B] = this match
-        case Success(v) => f(v)
-        case Failure(t) => Failure(t)
+        def flatMap[B](f: A => Attempt[B]): Attempt[B] = this match
+          case Success(v) => f(v)
+          case Failure(t) => Failure(t)
 
-      def fold[B](onFailure: Throwable => B)(onSuccess: A => B): B = this match
-        case Success(v) => onSuccess(v)
-        case Failure(t) => onFailure(t)
+        def fold[B](onFailure: Throwable => B)(onSuccess: A => B): B = this match
+          case Success(v) => onSuccess(v)
+          case Failure(t) => onFailure(t)
+      }
 
 
     // companion objects store "static"-like methods along with constructors & shared data
-    object Attempt:
+    object Attempt {
       // by name parameter : => A, delayed
       def apply[A](a: => A): Attempt[A] = try Success(a) catch case e: Throwable => Failure(e)
+    }
   
 }
