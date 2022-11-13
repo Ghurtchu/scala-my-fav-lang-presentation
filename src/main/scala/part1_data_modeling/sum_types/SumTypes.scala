@@ -6,11 +6,12 @@ object SumTypes {
   
   // sum type - finite amount of representations of a general interface
   // Scala 3 way of modeling Sum Types
-  enum Contact:
+  enum Contact {
     case Email(value: String)
     case Phone(number: Long)
     case Address(city: String, streetName: String)
     case LinkedinProfile(link: String)
+  }
     
   // In Scala 2 we would have used sealed traits and put the cases in the companion object of Contact
   object scala2 {
@@ -45,7 +46,7 @@ object SumTypes {
   val unit: Unit = ()
   
   // pattern matching
-  def process: Contact => Unit = contact => contact match
+  def process(contact: Contact): Unit = contact match
     case Contact.Email(value) => ???
     case Contact.Phone(number) => ???
     case Contact.Address(city, streetName) => ???
